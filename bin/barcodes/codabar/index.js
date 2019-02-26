@@ -32,7 +32,7 @@ var codabar = function (_Barcode) {
 
 		var _this = _possibleConstructorReturn(this, (codabar.__proto__ || Object.getPrototypeOf(codabar)).call(this, data.toUpperCase(), options));
 
-		_this.text = _this.options.text || _this.text.replace(/[A-D]/g, '');
+		_this.text = _this.options.text || _this.text;
 		return _this;
 	}
 
