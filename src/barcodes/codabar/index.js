@@ -12,7 +12,6 @@ class codabar extends Barcode{
 		super(data.toUpperCase(), options);
 
 		this.text = this.options.text || this.text;
-		//this.text = this.options.text || this.text.replace(/[A-D]/g, '');
 	}
 
 	valid(){
