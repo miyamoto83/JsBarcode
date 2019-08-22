@@ -37,7 +37,8 @@ function calculateEncodingAttributes(encodings, barcodeOptions, context){
 		}
 
 		var barcodeWidth = encoding.data.length * options.width;
-		encoding.width =  Math.ceil(Math.max(textWidth, barcodeWidth));
+		// fix : use barcodeWidth surely
+		encoding.width = Math.ceil(barcodeWidth);
 
 		encoding.height = getEncodingHeight(encoding, options);
 
