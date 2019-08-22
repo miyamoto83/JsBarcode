@@ -16,23 +16,21 @@ function getEncodingHeight(encoding, options) {
 }
 
 function getBarcodePadding(textWidth, barcodeWidth, options) {
-	// fix : use barcodeWidth surely
-	// if(options.displayValue && barcodeWidth < textWidth){
-	// 	if(options.textAlign == "center"){
-	// 		return Math.floor((textWidth - barcodeWidth) / 2);
-	// 	}
-	// 	else if(options.textAlign == "left"){
-	// 		return 0;
-	// 	}
-	// 	else if(options.textAlign == "right"){
-	// 		return Math.floor(textWidth - barcodeWidth);
-	// 	}
-	// }
+	if (options.displayValue && barcodeWidth < textWidth) {
+		if (options.textAlign == "center") {
+			return Math.floor((textWidth - barcodeWidth) / 2);
+		} else if (options.textAlign == "left") {
+			return 0;
+		} else if (options.textAlign == "right") {
+			return Math.floor(textWidth - barcodeWidth);
+		}
+	}
 	return 0;
 }
 
 function calculateEncodingAttributes(encodings, barcodeOptions, context) {
-	for (var i = 0; i < encodings.length; i++) {
+	var encodingsLength = encodings.length;
+	for (var i = 0; i < encodingsLength; i++) {
 		var encoding = encodings[i];
 		var options = (0, _merge2.default)(barcodeOptions, encoding.options);
 
@@ -45,12 +43,12 @@ function calculateEncodingAttributes(encodings, barcodeOptions, context) {
 		}
 
 		var barcodeWidth = encoding.data.length * options.width;
-		// fix : use barcodeWidth surely
-		encoding.width = Math.ceil(barcodeWidth);
+		// fix : Use barcodeWidth surely.
+		encoding.width = encodingsLength > 1 ? Math.ceil(barcodeWidth) : Math.ceil(Math.max(textWidth, barcodeWidth));
 
 		encoding.height = getEncodingHeight(encoding, options);
 
-		encoding.barcodePadding = getBarcodePadding(textWidth, barcodeWidth, options);
+		encoding.barcodePadding = encodingsLength > 1 ? 0 : getBarcodePadding(textWidth, barcodeWidth, options);
 	}
 }
 
